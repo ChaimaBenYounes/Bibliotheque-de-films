@@ -1,0 +1,46 @@
+
+{% if films is defined %}
+<h1>lists des films</h1>
+<table>
+<tr>
+    <td><h3>Titre</h3></td>
+    <td><h3>Date de sortie</h3></td>
+    <td><h3>Afficher en détail</h3></td>
+</tr>
+    {% for film in films %}
+    {% set varfilm = [ film.id, film.titre, film.dateAt,film.realisateur ,film.realisateur, film.acteurs ] %}
+        <tr>
+            <td>{{ film.titre }} </td>
+            <td>{{ film.dateAt|date('d/m/Y', "Europe/Paris") }} </td>
+            <td><a href="{{ path('index-list-film', { 'filmx' : varfilm|json_encode } ) }}" > Afficher </a></td>
+        </tr>
+    {% endfor %}
+
+<table>
+{% endif %}
+
+{% if filmx is defined %}
+
+
+<a href="{{ path('index') }}" > Retour vers la list des Films </a>
+
+<h1>film : {{ filmx['1'] }} </h1>
+
+<table>
+<tr>
+    <td><h3>Titre</h3></td>
+    <td><h3>Date de sortie</h3></td>
+    <td><h3>Realisateur</h3></td>
+    <td><h3>Acteurs</h3></td>
+</tr>
+<tr>
+    <td>{{ filmx['1'] }} </td>
+    <td>{{ filmx['2']|date('d/m/Y', "Europe/Paris") }} </td>
+    <td>{{ filmx['3'] }} </td>
+    <td>{{ filmx['4'] }} </td>
+</tr>
+
+
+<table>
+<a href="{{ app.request.headers.get('index') }}" > < page précédente </a>
+{% endif %}
